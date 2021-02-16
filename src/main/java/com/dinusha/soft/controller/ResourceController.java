@@ -3,6 +3,9 @@ package com.dinusha.soft.controller;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,8 +15,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController("/")
+@EnableScheduling
+@PropertySource("classpath:application.properties")
 public class ResourceController {
-    private static final HashMap<String, String> payload = new HashMap<>();
+    private static HashMap<String, String> payload = new HashMap<>();
 
     @PostMapping("/v1/cpu")
     public void persistData(@RequestBody String cpu) {
@@ -31,5 +36,11 @@ public class ResourceController {
     @GetMapping("/v1/cpu")
     public Map<String, String> persistData() {
         return payload;
+    }
+
+    @Scheduled(cron = "${cron.tile.refresh}")
+    public void cleanTile() {
+        System.out.println("deleting tiles");
+        payload = new HashMap<>();
     }
 }
