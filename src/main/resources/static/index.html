@@ -70,8 +70,10 @@
       border-width: thin;
       border-color: #FFFFFF;
       height: 200px;
-      width: 100%;
+      width: 200px;
       background-color: black;
+      color: white;
+      text-align: center;
     }
 
     /* Responsive layout - makes a two column-layout instead of four columns */
@@ -91,8 +93,6 @@
         max-width: 100%;
       }
     }
-
-
   </style>
 
   <script>
@@ -111,22 +111,60 @@
     }
 
     function createTiles() {
-      console.log(responce);
+      console.log("add element");
 
-      var para = document.createElement("p");
-      var node = document.createTextNode("This is new.");
-      para.appendChild(node);
+      //get row element
+      var row = document.getElementById('row')
+      //elements
+      var divCoulmn = document.createElement("div");
+      var divTile = document.createElement("div");
+      var h4CPU = document.createElement("h4");
+      var divTileContent = document.createElement("div");
+      var h3SeverName = document.createElement("h3");
+      var h1Percentage = document.createElement("h1");
+      var cpuHeader = document.createTextNode("CPU");
+      var severName = document.createTextNode("Sever 1");
+      var cpuText = document.createTextNode("40%");
 
-      var h1 = document.getElementsByTagName("H1")[0];
-      var att = document.createAttribute("class");
-      att.value = "democlass";
-      h1.setAttributeNode(att);
+      // //classes
+            var tile = document.createAttribute("class");
+      
+
+      // //set class names
+      // column.value = "column";
+      tile.value = "tile";
+
+      //set classes into element
+      divTile.setAttributeNode(tile);
+      
+      row.appendChild(divCoulmn);
+      divCoulmn.appendChild(divTile);
+      divTile.appendChild(h4CPU);
+      divTile.appendChild(cpuHeader);
+      divTile.appendChild(divTileContent);
+      divTileContent.appendChild(h3SeverName);
+      divTileContent.appendChild(h1Percentage);
+      h3SeverName.appendChild(severName);
+      h1Percentage.appendChild(cpuText);
+
+      
+      //testing 
+
+      // var a=document.getElementById('aa');
+      // var divCoulmn = document.createElement("div");
+      // var div1 = document.createElement("div");
+      // var cpuText = document.createTextNode("40fdfdfgdfgdsfdsfysdfgydsfdfdfys%");
+      // a.appendChild(divCoulmn)
+      // divCoulmn.appendChild(div1);
+      // div1.appendChild(cpuText)
+
+
     }
 
     var intervalId = window.setInterval(function () {
       /// call your function here
-      loadDoc();
-      createTiles();
+      // loadDoc();
+
     }, 1000);
 
 
@@ -138,35 +176,24 @@
 
 <body>
 <h1 id="demo"></h1>
-<!-- Photo Grid -->
-<div class="row">
 
-  <div class="column">
-    <div class="tile">
-      <div class="center textColor">
-        <h4 class="textLeft">CPU</45>
-        <div class="textCenter">
-          <h3>Prodction Server 1</h3>
-          <h1>40%</h1>
-        </div>
+<button onclick="createTiles()">add tile</button>
+
+<!-- <div id="row" class="row"> -->
+<div id="row" class="row">
+  <!-- <div class="column">
+    <div class="tile center textColor">
+      <h4 class="textLeft">CPU</h4>
+      <div class="textCenter">
+        <h3>Prodction Server 1</h3>
+        <h1>40%</h1>
       </div>
     </div>
-  </div>
-
-  <div class="column">
-    <div class="tile">
-      <div class="center textColor">
-        <h4 class="textLeft">CPU</45>
-        <div class="textCenter">
-          <h3>Prodction Server 1</h3>
-          <h1>40%</h1>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div> -->
 
 
 </div>
+<div id="aa"></div>
 </body>
 
 </html>
