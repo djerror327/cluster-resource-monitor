@@ -106,16 +106,17 @@
           responce = this.responseText;
         }
       };
-      xhttp.open("GET", "/v1/cpu", true);
+      xhttp.open("GET", "http://localhost:8888/v1/cpu", true);
       xhttp.send();
     }
 
-    function createTiles() {
+    function createTiles(serverNme, cpu) {
       console.log("add element");
 
       //get row element
       var row = document.getElementById('row')
       //elements
+      var divRemove = document.createElement("div");
       var divCoulmn = document.createElement("div");
       var divTile = document.createElement("div");
       var h4CPU = document.createElement("h4");
@@ -123,12 +124,12 @@
       var h3SeverName = document.createElement("h3");
       var h1Percentage = document.createElement("h1");
       var cpuHeader = document.createTextNode("CPU");
-      var severName = document.createTextNode("Sever 1");
-      var cpuText = document.createTextNode("40%");
+      var severName = document.createTextNode(serverNme);
+      var cpuText = document.createTextNode(cpu + "%");
 
       // //classes
-            var tile = document.createAttribute("class");
-      
+      var tile = document.createAttribute("class");
+
 
       // //set class names
       // column.value = "column";
@@ -136,8 +137,9 @@
 
       //set classes into element
       divTile.setAttributeNode(tile);
-      
-      row.appendChild(divCoulmn);
+
+      row.appendChild(divRemove);
+      divRemove.appendChild(divCoulmn);
       divCoulmn.appendChild(divTile);
       divTile.appendChild(h4CPU);
       divTile.appendChild(cpuHeader);
@@ -147,23 +149,49 @@
       h3SeverName.appendChild(severName);
       h1Percentage.appendChild(cpuText);
 
-      
-      //testing 
+    }
 
-      // var a=document.getElementById('aa');
-      // var divCoulmn = document.createElement("div");
-      // var div1 = document.createElement("div");
-      // var cpuText = document.createTextNode("40fdfdfgdfgdsfdsfysdfgydsfdfdfys%");
-      // a.appendChild(divCoulmn)
-      // divCoulmn.appendChild(div1);
-      // div1.appendChild(cpuText)
+    function passTOJson() {
 
+      var obj = JSON.parse(responce);
+
+      var size = Object.keys(obj).length;
+      var data = Object.values(obj);
+      var indexes = Object.keys(obj);
+      console.log("Item-id", size);
+      console.log(data);
+      console.log(indexes);
+
+      for (var a = 0; a < size; a++) {
+
+        var myobj = document.getElementById("row");
+        myobj.removeChild(myobj.childNodes[a]);
+        console.log("remove element");
+        console.log(indexes[a]);
+        console.log(data[a]);
+        createTiles(indexes[a], data[a]);
+
+        // var myobj = document.getElementsByClassName("tile");
+        // myobj.removeChild(myobj.childNodes[0]);
+
+        // if (document.contains(document.getElementsByClassName("tile"))) {
+        //   myobj.removeChild(myobj.childNodes[0]);
+        // }
+        
+
+      }
+      // var x = document.getElementById("row").childElementCount;
+      // console.log("element count " + x)
+      // for(var b=0;b<x;b++){
+      //   var myobj = document.getElementById("row");
+      //   myobj.removeChild(myobj.childNodes[0]);
+      // }
 
     }
 
     var intervalId = window.setInterval(function () {
       /// call your function here
-      // loadDoc();
+      loadDoc();
 
     }, 1000);
 
@@ -177,23 +205,23 @@
 <body>
 <h1 id="demo"></h1>
 
-<button onclick="createTiles()">add tile</button>
+<button onclick="createTiles('server1',10)">add tile</button>
+<button onclick="passTOJson()">json</button>
 
 <!-- <div id="row" class="row"> -->
 <div id="row" class="row">
   <!-- <div class="column">
-    <div class="tile center textColor">
-      <h4 class="textLeft">CPU</h4>
-      <div class="textCenter">
-        <h3>Prodction Server 1</h3>
-        <h1>40%</h1>
-      </div>
+  <div class="tile center textColor">
+    <h4 class="textLeft">CPU</h4>
+    <div class="textCenter">
+      <h3>Prodction Server 1</h3>
+      <h1>40%</h1>
     </div>
-  </div> -->
+  </div>
+</div> -->
 
 
 </div>
-<div id="aa"></div>
 </body>
 
 </html>
