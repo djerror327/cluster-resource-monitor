@@ -1,4 +1,3 @@
 # cluster-resource-monitor
-resource monitoring on a cluster or remote server
-#Deploy Package
-do a maven build, and it will build and deploy the package into deploy folder.
+Resource monitoring on a cluster or remote server is a resource monitoring tool.
+do a maven build, and it will build the APP and deploy it into the deploy folder.
