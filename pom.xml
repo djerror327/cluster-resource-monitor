@@ -6,7 +6,7 @@
 
     <groupId>com.dinusha.soft</groupId>
     <artifactId>cluster-resource-monitor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -47,6 +47,59 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <copy file="${basedir}/target/cluster-resource-monitor-1.0.jar"
+                                      todir="${basedir}/deploy/cluster-resource-monitor"/>
+                                <copy file="${basedir}/api.bat" todir="${basedir}/deploy/cluster-resource-monitor"/>
+                                <copy file="${basedir}/start.bat" todir="${basedir}/deploy/cluster-resource-monitor"/>
+                                <copy file="${basedir}/src/main/resources/application.properties"
+                                      todir="${basedir}/deploy/cluster-resource-monitor"/>
+                                <copy file="${basedir}/src/main/resources/log4j.properties"
+                                      todir="${basedir}/deploy/cluster-resource-monitor"/>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--            <plugin>-->
+            <!--                <artifactId>maven-resources-plugin</artifactId>-->
+            <!--                <version>3.1.0</version>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>copy-resource-one</id>-->
+            <!--                        <phase>install</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>copy-resources</goal>-->
+            <!--                        </goals>-->
+
+            <!--                        <configuration>-->
+            <!--                            <outputDirectory>${basedir}/destination-folder</outputDirectory>-->
+            <!--                            <resources>-->
+            <!--                                <resource>-->
+            <!--                                    <directory>D:\Projects\Springboot\cluster-resource-monitor\</directory>-->
+            <!--                                    <includes>-->
+            <!--                                        <include>api.bat</include>-->
+            <!--                                        <include>start.bat</include>-->
+            <!--                                        <directory>/target</directory>-->
+            <!--                                        <filtering>true</filtering>-->
+            <!--                                    </includes>-->
+            <!--                                </resource>-->
+            <!--                            </resources>-->
+            <!--                        </configuration>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
