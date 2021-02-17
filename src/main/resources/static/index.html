@@ -2,219 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Title</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial;
-    }
-
-    .header {
-      text-align: center;
-      padding: 32px;
-    }
-
-    .row {
-      display: -ms-flexbox;
-      /* IE10 */
-      display: flex;
-      -ms-flex-wrap: wrap;
-      /* IE10 */
-      flex-wrap: wrap;
-      padding: 0 4px;
-    }
-
-    /* Create four equal columns that sits next to each other */
-    .column {
-      -ms-flex: 25%;
-      /* IE10 */
-      flex: 25%;
-      max-width: 25%;
-      padding: 0 4px;
-    }
-
-    .column div {
-      margin-top: 8px;
-      vertical-align: middle;
-      width: 100%;
-    }
-
-    .center {
-      margin: auto;
-      width: 50%;
-      /* border: 3px solid green; */
-      padding: 10px;
-    }
-
-    .textCenter {
-      text-align: center;
-    }
-
-    .textLeft {
-      text-align: left;
-    }
-
-    .textColor {
-      color: white;
-    }
-
-    .tile {
-      border-style: solid;
-      border-width: thin;
-      border-color: #FFFFFF;
-      height: 200px;
-      width: 200px;
-      background-color: black;
-      color: white;
-      text-align: center;
-    }
-
-    /* Responsive layout - makes a two column-layout instead of four columns */
-    @media screen and (max-width: 800px) {
-      .column {
-        -ms-flex: 50%;
-        flex: 50%;
-        max-width: 50%;
-      }
-    }
-
-    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-    @media screen and (max-width: 600px) {
-      .column {
-        -ms-flex: 100%;
-        flex: 100%;
-        max-width: 100%;
-      }
-    }
-  </style>
-
-  <script>
-    var responce;
-
-    function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("demo").innerHTML = this.responseText;
-          responce = this.responseText;
-        }
-      };
-      xhttp.open("GET", "/v1/cpu", true);
-      xhttp.send();
-    }
-
-    function createTiles(serverNme, cpu) {
-      console.log("add element");
-
-      //get row element
-      var row = document.getElementById('row')
-      //elements
-      var divRemove = document.createElement("div");
-      var divCoulmn = document.createElement("div");
-      var divTile = document.createElement("div");
-      var h4CPU = document.createElement("h4");
-      var divTileContent = document.createElement("div");
-      var h3SeverName = document.createElement("h3");
-      var h1Percentage = document.createElement("h1");
-      var cpuHeader = document.createTextNode("CPU");
-      var severName = document.createTextNode(serverNme);
-      var cpuText = document.createTextNode(cpu + "%");
-
-      // //classes
-      var tile = document.createAttribute("class");
-
-
-      // //set class names
-      // column.value = "column";
-      tile.value = "tile";
-
-      //set classes into element
-      divTile.setAttributeNode(tile);
-
-      row.appendChild(divRemove);
-      divRemove.appendChild(divCoulmn);
-      divCoulmn.appendChild(divTile);
-      divTile.appendChild(h4CPU);
-      divTile.appendChild(cpuHeader);
-      divTile.appendChild(divTileContent);
-      divTileContent.appendChild(h3SeverName);
-      divTileContent.appendChild(h1Percentage);
-      h3SeverName.appendChild(severName);
-      h1Percentage.appendChild(cpuText);
-
-    }
-
-    function setTileData() {
-
-      var obj = JSON.parse(responce);
-
-      var size = Object.keys(obj).length;
-      var data = Object.values(obj);
-      var indexes = Object.keys(obj);
-      console.log("Item-id", size);
-      console.log(data);
-      console.log(indexes);
-
-
-      var childCount = document.getElementById("row").childElementCount;
-
-      for (var a = 0; a < childCount; a++) {
-
-        // myobj.removeChild(myobj.childNodes[0]);
-        var myobj = document.getElementById("row");
-        myobj.removeChild(myobj.childNodes[0]);
-        console.log("remove element");
-      }
-
-      for (var a = 0; a < size; a++) {
-        console.log(indexes[a]);
-        console.log(data[a]);
-        createTiles(indexes[a], data[a]);
-
-        // var myobj = document.getElementsByClassName("tile");
-        // myobj.removeChild(myobj.childNodes[0]);
-
-        // if (document.contains(document.getElementsByClassName("tile"))) {
-        //   myobj.removeChild(myobj.childNodes[0]);
-        // }
-
-
-      }
-    }
-
-    var intervalId = window.setInterval(function () {
-      /// call your function here
-      loadDoc();
-      setTileData();
-
-    }, 1000);
-
-
-
-
-  </script>
-
+  <link rel="stylesheet" href="app.css"/>
+  <script src="app.js"></script>
 </head>
 
 <body>
-<h1 id="demo"></h1>
-
-<!-- <div id="row" class="row"> -->
 <div id="row" class="row">
   <!-- <div class="column">
 <div class="tile center textColor">
-  <h4 class="textLeft">CPU</h4>
-  <div class="textCenter">
-    <h3>Prodction Server 1</h3>
-    <h1>40%</h1>
-  </div>
+<h4 class="textLeft">CPU</h4>
+<div class="textCenter">
+  <h3>Prodction Server 1</h3>
+  <h1>40%</h1>
+</div>
 </div>
 </div> -->
 
