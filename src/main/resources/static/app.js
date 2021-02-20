@@ -1,14 +1,14 @@
 var responce;
 
 function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      responce = this.responseText;
-    }
-  };
-  xhttp.open("GET", "/v1/cpu", true);
-  xhttp.send();
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            responce = this.responseText;
+        }
+    };
+    xhttp.open("GET", "/v1/cpu", true);
+    xhttp.send();
 }
 
 function createTiles(serverNme, cpu) {
@@ -71,4 +71,4 @@ var intervalId = window.setInterval(function() {
     /// call your function here
     loadDoc();
     setTileData();
-}, 1000);
+}, 900);
