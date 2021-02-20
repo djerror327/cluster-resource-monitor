@@ -56,7 +56,7 @@
                         <phase>package</phase>
                         <configuration>
                             <tasks>
-                                <copy file="${basedir}/target/cluster-resource-monitor-1.0.jar"
+                                <copy file="${basedir}/target/${project.artifactId}-${project.version}.jar"
                                       todir="${basedir}/deploy/cluster-resource-monitor"/>
                                 <copy file="${basedir}/start.bat" todir="${basedir}/deploy/cluster-resource-monitor"/>
                                 <copy file="${basedir}/src/main/resources/application.properties"
