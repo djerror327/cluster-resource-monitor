@@ -5,8 +5,11 @@ import com.dinusha.soft.utill.JsonUtil;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.task.TaskSchedulerBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,15 +43,20 @@ public class ResourceController {
 //        return payload;
 //    }
 
-//    @Scheduled(cron = "${cron.tile.refresh}")
-//    public void cleanTile() {
-//        if (deleteTiles.equals("true")) {
-//            logger.debug("Deleting unused tiles");
-////            payload = new HashMap<>();
-////            WebsocketConstent.cpuPayload = new StringBuilder();
-//        } else {
-//            logger.debug("Deleting unused tiles : off");
-//        }
-//
-//    }
+    @org.springframework.scheduling.annotation.Scheduled(cron = "${cron.tile.refresh}")
+    public void cleanTile() {
+        if (deleteTiles.equals("true")) {
+            logger.debug("Deleting unused tiles");
+            payload = new HashMap<>();
+//            WebsocketConstent.cpuPayload = new StringBuilder();
+        } else {
+            logger.debug("Deleting unused tiles : off");
+        }
+
+    }
+
+    @Bean
+    public ThreadPoolTaskScheduler taskScheduler(TaskSchedulerBuilder builder) {
+        return builder.build();
+    }
 }
