@@ -1,6 +1,6 @@
 package com.dinusha.soft.websocket;
 
-
+import org.apache.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.WebSocketHandler;
@@ -12,6 +12,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebSocketConfig implements WebSocketConfigurer {
 
+    private final Logger logger = Logger.getLogger(WebSocketConfig.class);
+
     @Bean
     public WebSocketHandler myMessageHandler() {
         return new SocketTextHandler();
@@ -19,7 +21,8 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(myMessageHandler(), "/my-websocket-endpoint");
+        logger.debug("Registering Web Socket endpoint : " + "/v1/web-socket-endpoint");
+        registry.addHandler(myMessageHandler(), "/v1/web-socket-endpoint");
     }
 
 }

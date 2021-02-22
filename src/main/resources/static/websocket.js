@@ -1,16 +1,5 @@
 var responce;
 
-// function loadDoc() {
-//     var xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//             responce = this.responseText;
-//         }
-//     };
-//     xhttp.open("GET", "/v1/cpu", true);
-//     xhttp.send();
-// }
-
 function createTiles(serverNme, cpu) {
     //get row element
     var row = document.getElementById('row')
@@ -29,7 +18,6 @@ function createTiles(serverNme, cpu) {
     // //classes
     var tile = document.createAttribute("class");
 
-
     // //set class names
     // column.value = "column";
     tile.value = "tile";
@@ -47,7 +35,6 @@ function createTiles(serverNme, cpu) {
     divTileContent.appendChild(h1Percentage);
     h3SeverName.appendChild(severName);
     h1Percentage.appendChild(cpuText);
-
 }
 
 function setTileData() {
@@ -67,27 +54,16 @@ function setTileData() {
     }
 }
 
-// var intervalId = window.setInterval(function() {
-//     /// call your function here
-//     loadDoc();
-//     setTileData();
-// }, 900);
-
-
-
-var socket = new WebSocket('ws://' + window.location.host + '/my-websocket-endpoint');
+var socket = new WebSocket('ws://' + window.location.host + '/v1/web-socket-endpoint');
 
 // Add an event listener for when a connection is open
 socket.onopen = function() {
-    console.log('WebSocket connection opened. Ready to send messages.');
-
     // Send a message to the server
-    socket.send('Hello, from WebSocket client!');
+    socket.send('WebSocket client conected!');
 };
 
 // Add an event listener for when a message is received from the server
 socket.onmessage = function(message) {
-    console.log('Message received from server: ' + message.data);
     responce = message.data;
     setTileData();
 };

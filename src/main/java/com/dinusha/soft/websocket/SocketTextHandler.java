@@ -1,64 +1,55 @@
 package com.dinusha.soft.websocket;
 
-import com.dinusha.soft.controller.ResourceController;
+import com.dinusha.soft.constant.WebSocketConstant;
+import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.io.IOException;
-
 @Component
 public class SocketTextHandler extends TextWebSocketHandler {
-    public static WebSocketSession webSocketSession;
+
+    private final Logger logger = Logger.getLogger(SocketTextHandler.class);
+    @Value("${web.socket.send.message}")
+    private String sendMessage;
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         // The WebSocket has been closed
+        logger.info("Session closed. Session ID : " + session.getId());
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         // The WebSocket has been opened
         // I might save this session object so that I can send messages to it outside of this method
-
         // Let's send the first message
-        session.sendMessage(new TextMessage("You are now connected to the server. This is the first message."));
+        session.sendMessage(new TextMessage("Web socket connected to the server!"));
         sendMessage(session);
-//        webSocketSession=session;
-//        int a = 0;
-//        for (; ; ) {
-//            Thread.sleep(1000);
-//            a += 1;
-//            session.sendMessage(new TextMessage("{\"cpu\":\"" + a + "\"}"));
-//        }
     }
 
     @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage textMessage) {
         // A message has been received
-        System.out.println("Message received: " + textMessage.getPayload());
+        logger.info("Message received: " + textMessage.getPayload());
     }
 
     private void sendMessage(WebSocketSession session) {
 
-        for (; ; ) {
-//            StringBuilder cpuPayload = new StringBuilder();
-//            WebsocketConstent.payloadMap.forEach((key, value) -> {
-//                cpuPayload.append()
-//            });
+        while (true) {
             try {
-                Thread.sleep(800);
+                Thread.sleep(Integer.parseInt(sendMessage));
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e.getStackTrace());
             }
-
             try {
-                session.sendMessage(new TextMessage(new JSONObject(ResourceController.payload).toJSONString()));
-            } catch (IOException e) {
-                e.printStackTrace();
+                session.sendMessage(new TextMessage(new JSONObject(WebSocketConstant.payload).toJSONString()));
+                logger.debug("WebSocket | Sending payload to frontend : " + WebSocketConstant.payload);
+            } catch (Exception e) {
             }
         }
     }

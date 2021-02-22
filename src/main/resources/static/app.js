@@ -29,7 +29,6 @@ function createTiles(serverNme, cpu) {
     // //classes
     var tile = document.createAttribute("class");
 
-
     // //set class names
     // column.value = "column";
     tile.value = "tile";
@@ -47,7 +46,6 @@ function createTiles(serverNme, cpu) {
     divTileContent.appendChild(h1Percentage);
     h3SeverName.appendChild(severName);
     h1Percentage.appendChild(cpuText);
-
 }
 
 function setTileData() {
