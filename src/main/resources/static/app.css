@@ -71,6 +71,11 @@ body {
     margin: 6px;
 }
 
+#noData {
+    text-align: center;
+    color: rgb(8, 9, 73);
+}
+
 
 /* Responsive layout - makes a two column-layout instead of four columns */
 

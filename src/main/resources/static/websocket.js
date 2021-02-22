@@ -48,9 +48,15 @@ function setTileData() {
         var myobj = document.getElementById("row");
         myobj.removeChild(myobj.childNodes[0]);
     }
-
-    for (var a = 0; a < size; a++) {
-        createTiles(indexes[a], data[a]);
+    //show message if data not availble
+    var noData = document.getElementById('noData');
+    if (size == 0) {
+        noData.innerHTML = "No Servers Found!"
+    } else {
+        noData.innerHTML = '';
+        for (var a = 0; a < size; a++) {
+            createTiles(indexes[a], data[a]);
+        }
     }
 }
 
