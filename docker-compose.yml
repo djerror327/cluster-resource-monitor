@@ -1,8 +1,11 @@
 version: '3'
 services:
   cluster-resource-monitor:
-    image: djerror327/cluster-recourse-monitor:1.0
+    build: .
+    image: cluster-recourse-monitor:1.0
     ports:
       - 8080:8080
     container_name: cluster-resource-monitor
     restart: always
+    volumes:
+      - .:/cluster_resource_monitor
